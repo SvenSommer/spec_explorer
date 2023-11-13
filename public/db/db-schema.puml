@@ -1,0 +1,52 @@
+@startuml
+entity "specifications" as specifications {
+  * id : INTEGER
+  --
+  * name : TEXT
+  * version : TEXT
+  * fullname : TEXT
+  * file_path : TEXT
+  category_id : INTEGER
+  type_id : INTEGER
+  req_count : INTEGER
+  status : TEXT
+}
+
+entity "requirements" as requirements {
+  * id : INTEGER
+  --
+  specification_id : INTEGER
+  source_id : INTEGER
+  requirement_number : TEXT
+  title : TEXT
+  description : TEXT
+  processed_title : TEXT
+  processed_description : TEXT
+  obligation_id : INTEGER
+  test_procedure_id : INTEGER
+}
+
+entity "requirement_similarities" as requirement_similarities {
+  * combined_identifier : TEXT
+  --
+  specification1_id : INTEGER
+  specification2_id : INTEGER
+  requirement1_id : INTEGER
+  requirement2_id : INTEGER
+  requirement1_number : TEXT
+  requirement2_number : TEXT
+  title_similarity_score : REAL
+  description_similarity_score : REAL
+  comparison_method_id : INTEGER
+}
+
+specifications ||--o{ requirements : "specification_id"
+specifications ||--o{ requirement_similarities : "specification1_id"
+specifications ||--o{ requirement_similarities : "specification2_id"
+
+requirements ||--o{ requirement_similarities : "requirement1_id"
+requirements ||--o{ requirement_similarities : "requirement2_id"
+
+note "Simple table structure for categories, types, sources, obligations, comparison methods, and test procedures." as N1
+
+@enduml
