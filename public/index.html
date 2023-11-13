@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spezifikationsexplorer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+
+</head>
+
+<body>
+    <div class="repo-notice">
+        <p>Hast du Code? Schick einen Pull Request! 👉 <a href="https://github.com/SvenSommer/Spec_explorer" target="_blank">GitHub</a></p>
+    </div>
+    <div
+        class="content-detail__block content-detail__block--filter-table content-detail__block--breaker content-detail__block--top-half content-detail__block--bottom-half">
+        <div class="form-container">
+            <h2>Anforderungssuche</h2>
+            <p>Geben Sie den Text ein, um ähnliche Anforderungen zu finden:</p>
+            <form id="searchForm" action="http://127.0.0.1:5000/find_similar_requirements" method="post">
+                <textarea id="initialText" name="initialText" rows="15" cols="100" required></textarea><p></p>
+                <button type="submit" class="button button--primary filter__button">
+                    <span class="button__text">Anforderungen suchen</span>
+                </button>
+            </form>
+        </div>
+        <br>
+        <br>
+        <h2>Anforderungen mit ähnlichen Beschreibungstext</h2>
+        <table id="resultsTable">
+            <thead>
+                <tr>
+                    <th>Anforderung ID</th>
+                    <th>Quelle</th>
+                    <th>Title</th>
+                    <th>Beschreibung</th>
+                    <th>Verbindlichkeit</th>
+                    <th>Prüfverfahren</th>
+                    <th>Similarity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Ergebnisse werden hier eingefügt -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var form = document.getElementById('searchForm');
+            form.onsubmit = function (e) {
+                e.preventDefault(); // Prevent page reload
+
+                var formData = new FormData(form);
+                fetch('/find_similar_requirements', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        var resultsTable = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
+                        resultsTable.innerHTML = ''; // Clear previous results
+
+                        // Check if no results were found
+                        if (data.length === 0) {
+                            var noResultsMessage = document.getElementById('noResultsMessage');
+                            if (!noResultsMessage) { // If the message element doesn't exist, create it
+                                noResultsMessage = document.createElement('div');
+                                noResultsMessage.id = 'noResultsMessage';
+                                noResultsMessage.textContent = 'Keine ähnlichen Anforderungen gefunden.';
+                                noResultsMessage.style.color = 'red'; // Style the message, for example with red color
+                                document.getElementById('resultsContainer').appendChild(noResultsMessage);
+                            }
+                        } else {
+                            // If there is a no results message from a previous search, remove it
+                            var existingMessage = document.getElementById('noResultsMessage');
+                            if (existingMessage) {
+                                existingMessage.remove();
+                            }
+
+                            // If results are found, create and display them in the table
+                            data.forEach(function (result) {
+                                var row = resultsTable.insertRow();
+                                row.insertCell().textContent = result.req_requirement_number;
+                                row.insertCell().textContent = result.req_source;
+                                row.insertCell().textContent = result.spec_title;
+                                row.insertCell().textContent = result.spec_description;
+                                row.insertCell().textContent = result.spec_obligation;
+                                row.insertCell().textContent = result.spec_test_procedure;
+                                row.insertCell().textContent = parseFloat(result.similarity).toFixed(2);
+                            });
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            };
+        });
+    </script>
+
+</body>
+
+</html>

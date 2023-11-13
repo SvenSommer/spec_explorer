@@ -1,0 +1,239 @@
+/* Basic Reset and Box Sizing */
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+    transition-duration: .2s;
+    background-repeat: no-repeat;
+}
+
+/* Base HTML and Body Styles */
+html {
+    font-size: 62.5%;
+    /* 10px */
+    color: #252834;
+    font-family: 'Roboto', sans-serif;
+    /* Changed from 'Apercu', 'Helvetica', 'Arial' to 'Roboto' */
+    letter-spacing: -.15px;
+    line-height: 1;
+    scroll-behavior: smooth;
+    height: 100%;
+    /* Added to stretch the html element to full height */
+}
+
+body {
+    font-size: 1.8rem;
+    /* 18px */
+    line-height: 1.55;
+    min-width: 320px;
+    overflow-x: hidden;
+    font-family: 'Roboto', sans-serif;
+    /* Changed to 'Roboto' and overrides previous font-family */
+    letter-spacing: 0;
+    color: #000e52;
+    margin: 0;
+    /* Added to remove default margin */
+    height: 100%;
+    /* Added to stretch the body element to full height */
+}
+
+/* General table styles */
+#gTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  #gTable,
+  #gTable th,
+  #gTable td {
+    border: 1px solid #ddd;
+  }
+  
+  /* Header styles */
+  #gTable th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  /* Body styles */
+  #gTable td {
+    text-align: center;
+    padding: 8px;
+  }
+  
+  #gTable .hover-cell:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+  }
+  
+  /* Text color for cells based on background color */
+  #gTable td.white-text {
+    color: white;
+  }
+  
+  #gTable td.black-text {
+    color: black;
+  }
+  
+  /* Striped rows for better readability */
+  #gTable tr:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Add border to the bottom of the header for emphasis */
+  #gTable thead th {
+    border-bottom: 2px solid #eaeaea;
+  }
+  
+
+/* Selection Color */
+::selection {
+    background-color: #000e52;
+    color: #fff;
+}
+
+/* Content Block Styles */
+.content-detail__block {
+    padding: 6rem 2rem;
+    width: 100%;
+}
+
+.content-detail__block--top-half {
+    padding-top: 1.5rem;
+}
+
+.content-detail__block--bottom-half {
+    padding-bottom: 1.5rem;
+}
+
+.container {
+    max-width: 2400px;
+}
+
+#requirements-container {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.dataTables_wrapper {
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+
+
+/* Button Styles */
+button {
+    font-weight: 400;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    text-rendering: optimizeLegibility;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    cursor: pointer;
+    background-color: #000e52;
+    margin: 0;
+    padding: 8px 16px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #fff;
+    border-radius: 4px;
+    outline: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: #fff;
+    color: #000e52;
+    border-color: #000e52;
+}
+
+/* Collapsible Elements */
+.collapsible-arrow {
+    display: inline-block;
+    margin-right: 5px;
+    transition: transform 0.3s ease;
+    transform: rotate(-90deg);
+}
+
+.collapsible-arrow.rotated {
+    transform: rotate(0deg);
+}
+
+.collapsible-content {
+    display: none;
+    padding: 0 18px;
+}
+
+.collapsible-header.active+.collapsible-content {
+    display: block;
+}
+
+.filter__message {
+    color: #00ff64;
+    opacity: 0;
+    transition: opacity 1s ease-out, visibility 1s ease-out;
+    visibility: hidden;
+    height: 20px;
+    line-height: 20px;
+}
+
+.filter__message.visible {
+    opacity: 1;
+    visibility: visible;
+}
+.label-pending {
+    color: grey;
+}
+
+.breadcrumb {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .breadcrumb-item {
+    margin-right: 0.5rem;
+  }
+  
+  .breadcrumb-item + .breadcrumb-item:before {
+    content: '→';
+    margin-right: 0.5rem;
+  }
+  
+  .breadcrumb-item a {
+    text-decoration: none;
+    color: #0275d8;
+  }
+  
+  .breadcrumb-item a:hover {
+    text-decoration: underline;
+  }
+  
+  .breadcrumb-item.active {
+    color: #6c757d;
+    pointer-events: none;
+  }
+
+  .breadcrumb-item .active {
+    color: #6c757d; /* Farbe für inaktive Breadcrumb-Elemente */
+    pointer-events: none; /* Deaktiviert Klick-Events */
+    cursor: default; /* Ändert den Mauszeiger zu einem Standardzeiger anstatt eines Links */
+  }
+
+  .repo-notice {
+    position: absolute;
+    top: 10px;
+    right: 10px; /* Verschieben nach rechts oben */
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
