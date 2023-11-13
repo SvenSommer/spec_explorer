@@ -1,2 +1,7 @@
 Flask
 Gunicorn
+openpyxl
+spacy
+nltk
+scikit-learn
+flask
